@@ -175,41 +175,6 @@
     }
     .btn-secondary:hover { border-color: var(--navy); background: var(--gray-50); transform: translateY(-1px); }
 
-    /* ── STATS ── */
-    #stats {
-      background: var(--navy);
-      padding: 56px;
-    }
-
-    .stats-grid {
-      max-width: 1120px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-    }
-
-    .stat-item {
-      text-align: center;
-      padding: 24px 16px;
-      border-right: 1px solid rgba(255,255,255,0.1);
-    }
-    .stat-item:last-child { border-right: none; }
-
-    .stat-number {
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      font-weight: 800;
-      color: var(--green);
-      letter-spacing: -1px;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .stat-label {
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.6);
-      font-weight: 500;
-    }
 
     /* ── SECTIONS ── */
     section { padding: 96px 56px; }
@@ -514,28 +479,6 @@
   </div>
 </div>
 
-<!-- STATS BAR -->
-<div id="stats">
-  <div class="stats-grid">
-    <div class="stat-item reveal">
-      <div class="stat-number" data-target="150" data-suffix="+">0</div>
-      <div class="stat-label">Countries Supported</div>
-    </div>
-    <div class="stat-item reveal reveal-delay-1">
-      <div class="stat-number" data-target="30" data-prefix="&lt;" data-suffix="s">0</div>
-      <div class="stat-label">SITREP Generation Time</div>
-    </div>
-    <div class="stat-item reveal reveal-delay-2">
-      <div class="stat-number" data-target="24" data-suffix="/7">0</div>
-      <div class="stat-label">Real-Time Data Coverage</div>
-    </div>
-    <div class="stat-item reveal reveal-delay-3">
-      <div class="stat-number" data-target="10" data-suffix="K+">0</div>
-      <div class="stat-label">Incidents Analyzed</div>
-    </div>
-  </div>
-</div>
-
 <!-- HOW IT WORKS -->
 <section id="how-it-works">
   <div class="section-inner centered">
@@ -721,33 +664,7 @@
 
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  /* ── 3. ANIMATED STAT COUNTERS ── */
-  function animateCounter(el) {
-    const target  = +el.dataset.target;
-    const prefix  = el.dataset.prefix  || '';
-    const suffix  = el.dataset.suffix  || '';
-    const duration = 1600;
-    const step = target / (duration / 16);
-    let current = 0;
-    const timer = setInterval(() => {
-      current = Math.min(current + step, target);
-      el.innerHTML = prefix + Math.floor(current) + suffix;
-      if (current >= target) clearInterval(timer);
-    }, 16);
-  }
-
-  const statObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.querySelectorAll('.stat-number').forEach(animateCounter);
-        statObserver.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  document.querySelectorAll('#stats').forEach(el => statObserver.observe(el));
-
-  /* ── 4. FLOATING CTA ── */
+  /* ── 3. FLOATING CTA ── */
   const floatBtn = document.getElementById('floatCta');
   const heroEl   = document.getElementById('hero');
 
